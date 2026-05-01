@@ -24,13 +24,18 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', authMiddleware, projectRoutes);
 app.use('/api/tasks', authMiddleware, taskRoutes);
 
-// Serve static files from client build in production
+// ✅ ADD THIS HERE (outside)
+app.get('/', (req, res) => {
+  res.send("Backend running successfully");
+});
+
+// Serve static files (optional)
 if (process.env.NODE_ENV === 'production') {
   const clientBuildPath = path.join(__dirname, '../../client/dist');
   app.use(express.static(clientBuildPath));
-  
-  app.get('/', (req, res) => {
-    res.send("Backend running successfully");
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
   });
 }
 
@@ -42,7 +47,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
 });
