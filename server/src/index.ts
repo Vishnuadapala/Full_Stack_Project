@@ -32,6 +32,8 @@ app.get('/', (req, res) => {
 // Serve static files (optional)
 if (process.env.NODE_ENV === 'production') {
   const clientBuildPath = path.resolve(process.cwd(), 'client', 'dist');
+
+  console.log("Serving frontend from:",clientBuildPath);
   app.use(express.static(clientBuildPath));
 
   app.get('*', (req, res) => {
@@ -40,9 +42,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error(err);
-  res.status(500).json({ error: err.message || 'Internal Server Error' });
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error("🔥 ERROR:", err);
+  res.status(500).json({ error: err.message || "Internal Server Error" });
 });
 
 const PORT = Number(process.env.PORT) || 5000;
