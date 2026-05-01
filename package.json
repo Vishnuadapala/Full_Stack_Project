@@ -1,4 +1,13 @@
-"scripts": {
-  "build": "cd client && npm install && npm run build && cd ../server && npm install && npm run build",
-  "start": "node server/dist/index.js"
+{
+  "name": "team-task-manager",
+  "version": "1.0.0",
+  "description": "Production-ready Team Task Manager web app",
+  "scripts": {
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "start": "node server/dist/index.js"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.6.0"
+  }
 }
