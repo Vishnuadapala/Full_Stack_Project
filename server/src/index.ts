@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 // Serve static files (optional)
 if (process.env.NODE_ENV === 'production') {
-  const clientBuildPath = path.join(__dirname, '../../client/build');
+  const clientBuildPath = path.resolve(process.cwd(), 'client', 'dist');
   app.use(express.static(clientBuildPath));
 
   app.get('*', (req, res) => {
